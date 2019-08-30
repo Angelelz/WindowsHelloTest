@@ -3,7 +3,7 @@ namespace WindowsHelloTest1
 {
     using System;
     using System.IO;
-
+    using System.Text;
     using WindowsHello;
 
     /// <summary>
@@ -19,8 +19,9 @@ namespace WindowsHelloTest1
             Console.WriteLine("Starting.");
 
             var handle = new IntPtr();
-            var data = new byte[] { 0x32, 0x32 };
-            Console.WriteLine($"Decrypted data: { BitConverter.ToString(data).Replace("-", " ")}");
+            string dataToEncrypt = "This is the text we want to check";
+            byte[] data = Encoding.ASCII.GetBytes(dataToEncrypt);
+            Console.WriteLine("Decrypted data: " + dataToEncrypt);
             IAuthProvider provider = new WinHelloProvider("Hello", handle);
             var encryptedData = provider.Encrypt(data);
             Console.WriteLine($"Encrypted data: { BitConverter.ToString(encryptedData).Replace("-", " ")}");
